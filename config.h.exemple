@@ -1,0 +1,38 @@
+#pragma once
+
+// Seul fichier a modifier.
+// console = dev, sur le PC, tant que l'ecran n'est pas branche.
+// ecran   = prod, le rendu de la maquette.
+
+#define MODE_CONSOLE 0
+#define MODE_SCREEN 1
+
+#define APP_MODE MODE_CONSOLE
+
+// Heure et meteo passent par le Wi-Fi.
+// Le cable USB alimente la carte et affiche la console.
+// Une pile, plus tard, remplace seulement le cable.
+static const char WIFI_SSID[] = "";
+static const char WIFI_PASSWORD[] = "";
+
+// Paris, en dur pour cette version.
+static const char CITY_NAME[] = "Paris";
+static const float CITY_LAT = 48.8566f;
+static const float CITY_LON = 2.3522f;
+static const char TIMEZONE[] = "CET-1CEST,M3.5.0,M10.5.0/3";
+
+// Ecran 3.2 pouces, quand APP_MODE vaut MODE_SCREEN.
+// Fils dupont, sans soudure. La camera et le tactile restent non utilises.
+// VCC : 5V sur les modules rouges. Si le marquage dit 3V3, utiliser 3V3.
+// GND -> GND     LED -> 3V3
+// CS -> IO14     RESET -> IO21    DC -> IO47
+// SDI / MOSI -> IO1
+// SCK -> IO2
+// SDO / MISO -> IO41
+#define TFT_SCK 2
+#define TFT_MOSI 1
+#define TFT_MISO 41
+#define TFT_CS 14
+#define TFT_DC 47
+#define TFT_RST 21
+#define TFT_ROTATION 1
