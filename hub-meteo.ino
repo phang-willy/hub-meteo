@@ -2,15 +2,17 @@
 //
 // domain/    heure, meteo, jour ou nuit
 // ports/     ce dont le programme a besoin, sans dire comment
-// adapters/  wifi, NTP, Open-Meteo, console, ecran
+// adapters/  wifi, NTP, Open-Meteo, console, ecran, tactile
 // app/       quand rafraichir, puis quoi montrer
 
 #include "app/hub.h"
 #include "adapters/ntp_clock.h"
 #include "adapters/open_meteo.h"
+#include "adapters/null_touch.h"
 #include "adapters/screen_presenter.h"
 #include "adapters/serial_presenter.h"
 #include "adapters/wifi_link.h"
+#include "adapters/xpt2046_touch.h"
 #include "config.h"
 #include "ports/composite_presenter.h"
 
@@ -22,9 +24,12 @@ OpenMeteo openMeteo;
 SerialPresenter serialPresenter;
 #if APP_MODE == MODE_SCREEN
 ScreenPresenter screenPresenter;
+Xpt2046Touch touch;
+#else
+NullTouch touch;
 #endif
 CompositePresenter presenter;
-Hub hub(wifiLink, ntpClock, openMeteo, presenter);
+Hub hub(wifiLink, ntpClock, openMeteo, presenter, touch);
 
 void setup() {
   Serial.begin(115200);

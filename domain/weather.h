@@ -24,7 +24,7 @@ inline const char *weatherLabel(int code) {
   if (code == 80 || code == 81 || code == 82) return "Averses";
   if (code == 85 || code == 86) return "Neige";
   if (code >= 95) return "Orage";
-  return "Meteo";
+  return "Météo";
 }
 
 inline Icon weatherIcon(int code) {

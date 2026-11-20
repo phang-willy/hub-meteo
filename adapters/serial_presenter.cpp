@@ -18,7 +18,7 @@ void SerialPresenter::show(const Frame &frame) {
     Serial.print("\u00B0C - ");
     Serial.println(domain::weatherLabel(frame.weatherCode));
   } else {
-    Serial.println("Meteo...");
+    Serial.println("Météo...");
   }
   Serial.println(frame.city);
   Serial.println(frame.clock);

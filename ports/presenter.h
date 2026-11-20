@@ -1,6 +1,7 @@
 #pragma once
 
 #include "domain/frame.h"
+#include "ports/touch_input.h"
 
 // Sortie du programme. La console et l'ecran en sont deux versions.
 class Presenter {
@@ -9,4 +10,5 @@ class Presenter {
   virtual void begin() = 0;
   virtual void showStatus(const char *line) = 0;
   virtual void show(const Frame &frame) = 0;
+  virtual void interact(const TouchSample &) {}
 };
