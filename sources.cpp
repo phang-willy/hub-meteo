@@ -6,4 +6,6 @@
 #include "adapters/ntp_clock.cpp"
 #include "adapters/open_meteo.cpp"
 #include "adapters/serial_presenter.cpp"
+#include "adapters/backlight.cpp"
 #include "adapters/screen_presenter.cpp"
+#include "adapters/xpt2046_touch.cpp"

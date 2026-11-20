@@ -12,7 +12,7 @@ inline void formatClock(const struct tm &now, char *out, size_t size) {
 
 inline void formatDate(const struct tm &now, char *out, size_t size) {
   const char *days[] = {"Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"};
-  const char *months[] = {"jan", "fev", "mar", "avr", "mai", "juin", "juil", "aout", "sept", "oct", "nov", "dec"};
+  const char *months[] = {"jan", "fév", "mar", "avr", "mai", "juin", "juil", "août", "sept", "oct", "nov", "déc"};
   snprintf(out, size, "%s %d %s %d", days[now.tm_wday], now.tm_mday, months[now.tm_mon], now.tm_year + 1900);
 }
 

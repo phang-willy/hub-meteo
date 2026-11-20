@@ -23,6 +23,10 @@ class CompositePresenter : public Presenter {
     for (int i = 0; i < count_; i++) items_[i]->show(frame);
   }
 
+  void interact(const TouchSample &sample) override {
+    for (int i = 0; i < count_; i++) items_[i]->interact(sample);
+  }
+
  private:
   Presenter *items_[2];
   int count_;

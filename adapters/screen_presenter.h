@@ -13,6 +13,7 @@ class ScreenPresenter : public Presenter {
   void begin() override;
   void showStatus(const char *line) override;
   void show(const Frame &frame) override;
+  void interact(const TouchSample &sample) override;
 
  private:
   struct Impl;

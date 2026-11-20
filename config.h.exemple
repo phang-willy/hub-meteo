@@ -22,9 +22,9 @@ static const float CITY_LON = 2.3522f;
 static const char TIMEZONE[] = "CET-1CEST,M3.5.0,M10.5.0/3";
 
 // Ecran 3.2 pouces, quand APP_MODE vaut MODE_SCREEN.
-// Fils dupont, sans soudure. La camera et le tactile restent non utilises.
+// Fils dupont, sans soudure. La nappe camera reste debranchee.
 // VCC : 5V sur les modules rouges. Si le marquage dit 3V3, utiliser 3V3.
-// GND -> GND     LED -> 3V3
+// GND -> GND     LED -> 16
 // CS -> IO14     RESET -> IO21    DC -> IO47
 // SDI / MOSI -> IO1
 // SCK -> IO2
@@ -36,3 +36,21 @@ static const char TIMEZONE[] = "CET-1CEST,M3.5.0,M10.5.0/3";
 #define TFT_DC 47
 #define TFT_RST 21
 #define TFT_ROTATION 1
+// Retroeclairage. Deplacer le fil LED, actuellement sur 3V3, vers 16 (juste sous 15).
+#define TFT_LED 16
+
+// Tactile XPT2046, bus a part : une broche de la Freenove ne prend qu'un fil.
+// A gauche, sous RST, dans l'ordre : 4, 5, 6, 7, 15. Nappe camera debranchee.
+#define TOUCH_CLK 4
+#define TOUCH_CS 5
+#define TOUCH_DIN 6
+#define TOUCH_DO 7
+#define TOUCH_IRQ 15
+// Paysage. X ecran = axe X du controleur, Y ecran = axe Y.
+// Si la glissiere part a l'envers, inverser TOUCH_INVERT_X.
+#define TOUCH_X_MIN 240
+#define TOUCH_X_MAX 3800
+#define TOUCH_Y_MIN 240
+#define TOUCH_Y_MAX 3800
+#define TOUCH_INVERT_X 0
+#define TOUCH_INVERT_Y 0

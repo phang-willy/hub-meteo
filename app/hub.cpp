@@ -8,18 +8,21 @@
 #include <stdio.h>
 #include <string.h>
 
-Hub::Hub(Network &network, ClockSource &clock, WeatherGateway &weather, Presenter &presenter)
+Hub::Hub(Network &network, ClockSource &clock, WeatherGateway &weather, Presenter &presenter, TouchInput &touch)
   : network_(network),
     clock_(clock),
     weather_(weather),
     presenter_(presenter),
+    touch_(touch),
     forecast_(),
     wifiOk_(false),
     timeOk_(false),
     night_(false),
+    touchArmed_(false),
     shownSecond_(-1),
     nextWeatherAt_(0),
-    nextWifiTry_(0) {}
+    nextWifiTry_(0),
+    touchReadyAt_(0) {}
 
 bool Hub::bringWifi() {
   if (!network_.configured()) {
@@ -34,7 +37,7 @@ bool Hub::bringWifi() {
   presenter_.showStatus("Connexion...");
   if (!network_.connect()) {
     Serial.println("Wi-Fi refuse. Verifie le nom et le mot de passe dans config.h.");
-    presenter_.showStatus("Wi-Fi echec");
+    presenter_.showStatus("Wi-Fi échec");
     return false;
   }
 
@@ -79,8 +82,18 @@ void Hub::showNow() {
   presenter_.show(frame);
 }
 
+void Hub::pollTouch() {
+  if (!touchArmed_) {
+    touchArmed_ = true;
+    touchReadyAt_ = millis() + 400UL;
+  }
+  if (millis() < touchReadyAt_) return;
+  presenter_.interact(touch_.sample());
+}
+
 void Hub::begin() {
   presenter_.begin();
+  touch_.begin();
   Serial.print("Position : ");
   Serial.println(CITY_NAME[0] ? CITY_NAME : "Paris");
 
@@ -140,6 +153,7 @@ void Hub::tick() {
 
   struct tm now;
   if (!timeOk_ || !clock_.now(now, 10)) return;
+  pollTouch();
   if (now.tm_sec == shownSecond_) return;
   shownSecond_ = now.tm_sec;
   showNow();
